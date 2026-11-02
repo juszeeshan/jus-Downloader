@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101116">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Jus Downloader">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="./assets/icon-192.png">
+  <meta name="description" content="A privacy-first media library for Instagram content you own or are authorized to save.">
+  <title>Jus Downloader — Media workspace</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#home" aria-label="Jus Downloader home"><span class="brand-mark">Jd</span><span>Jus Downloader<small>MEDIA WORKSPACE</small></span></a>
+      <nav class="side-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-page="home"><span>⌂</span>Home</button>
+        <button class="nav-link" data-page="platforms"><span>▦</span>Platforms</button>
+        <button class="nav-link" data-page="reels"><span>▣</span>Reels</button>
+        <button class="nav-link" data-page="posts"><span>▧</span>Posts</button>
+        <button class="nav-link" data-page="carousels"><span>▤</span>Carousels</button>
+        <button class="nav-link" data-page="profile"><span>◎</span>Profile</button>
+        <button class="nav-link" data-page="dm"><span>✉</span>DM Media</button>
+        <button class="nav-link" data-page="connect"><span>↗</span>Connect Instagram</button>
+        <div class="nav-divider"></div>
+        <button class="nav-link" data-page="downloads"><span>↓</span>Downloads <b id="download-count" class="count">0</b></button>
+        <button class="nav-link" data-page="settings"><span>⚙</span>Settings</button>
+      </nav>
+      <div class="sidebar-foot"><span class="status-dot"></span> Local-first workspace</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">Jd</span> Jus Downloader</div>
+        <div class="breadcrumb" id="breadcrumb">Workspace <span>/</span> Home</div>
+        <div class="top-actions">
+          <span class="privacy-pill"> <span class="status-dot"></span> Privacy protected</span>
+          <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">☼</button>
+        </div>
+      </header>
+
+      <section class="page active" id="page-home">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">YOUR PERSONAL MEDIA SPACE</div>
+            <h1>Keep what<br><em>matters.</em></h1>
+            <p>Organize and save media you own or have permission to download.</p>
+          </div>
+          <div class="hero-orb" aria-hidden="true"><div class="orb-inner">Jd</div></div>
+        </div>
+
+        <div class="section-heading"><div><h2>Start with a link</h2><p>Links from your connected social platforms</p></div><span class="step-label">01 / INPUT</span></div>
+        <div class="url-panel">
+          <div class="url-input-wrap"><span class="link-icon">↗</span><input id="url-input" type="url" placeholder="Paste a social media link…" autocomplete="off" spellcheck="false"><button id="paste-btn" class="paste-btn">Paste</button></div>
+          <div class="url-panel-bottom"><span id="url-hint">Link checks identify the platform only; they do not fetch media.</span><button id="process-url" class="primary-btn">Check link <span>→</span></button></div>
+        </div>
+        <div id="url-result" class="notice hidden" role="status" aria-live="polite"></div>
+
+        <div class="section-heading quick-heading"><div><h2>Your platforms</h2><p>Ten separate workspaces, one media library</p></div><button class="text-btn" data-go="platforms">View all →</button></div>
+        <div class="platform-grid" id="home-platform-grid"></div>
+        <div class="quick-grid">
+          <button class="quick-card" data-go="reels"><span class="quick-icon violet">▶</span><b>Reels</b><small>Short-form videos</small><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-go="posts"><span class="quick-icon blue">▧</span><b>Posts</b><small>Photos and videos</small><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-go="carousels"><span class="quick-icon amber">▤</span><b>Carousels</b><small>Multi-item posts</small><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-go="dm"><span class="quick-icon green">✉</span><b>DM Media</b><small>Your exported files</small><span class="quick-arrow">↗</span></button>
+        </div>
+
+        <div class="section-heading"><div><h2>Import your media</h2><p>Use files you own or are authorized to save</p></div><span class="step-label">02 / LOCAL</span></div>
+        <div class="import-panel"><div class="import-symbol">＋</div><div><b>Bring your own files</b><p>Images and videos stay in this browser session. Nothing is uploaded.</p></div><label class="secondary-btn" for="file-import">Choose files</label><input id="file-import" type="file" accept="image/*,video/*" multiple hidden></div>
+      </section>
+
+      <section class="page" id="page-platforms">
+        <div class="page-title"><div class="eyebrow">MULTI-PLATFORM WORKSPACE</div><h1>Platforms</h1><p>Choose a platform to check a link or import media you are allowed to save.</p></div>
+        <div class="platform-grid large" id="platform-grid"></div>
+        <div class="privacy-note"><b>Platform-specific limits</b><p>Each service has different terms, API permissions and download controls. Link recognition is not a download service. No login scraping, private-account bypass, DRM removal or disappearing-message capture is supported.</p></div>
+      </section>
+      <section class="page" id="page-platform-workspace">
+        <div class="page-title"><div class="eyebrow" id="platform-eyebrow">PLATFORM WORKSPACE</div><h1 id="platform-title">Platform</h1><p id="platform-description">Check a link or import authorized media.</p></div>
+        <div class="url-panel">
+          <div class="url-input-wrap"><span class="link-icon">↗</span><input id="platform-url" type="url" placeholder="Paste a link…" autocomplete="off" spellcheck="false"><button id="platform-paste" class="paste-btn">Paste</button></div>
+          <div class="url-panel-bottom"><span id="platform-link-hint">Link recognition only; no media is fetched.</span><button id="platform-check" class="primary-btn">Check link <span>→</span></button></div>
+        </div>
+        <div id="platform-result" class="notice hidden" role="status" aria-live="polite"></div>
+        <div class="import-panel platform-import"><div class="import-symbol">＋</div><div><b>Import media for this platform</b><p>Choose photos or videos already on your device. Files remain local to this browser session.</p></div><label class="secondary-btn" for="platform-import">Choose files</label><input id="platform-import" type="file" accept="image/*,video/*" multiple hidden></div>
+        <div class="section-heading"><div><h2>Your imported media</h2><p>Items tagged to this platform in this session</p></div><button class="text-btn" data-go="downloads">All downloads →</button></div>
+        <div class="collection-grid" id="grid-platform"></div>
+        <button class="secondary-btn back-platforms" data-go="platforms">← All platforms</button>
+      </section>
+      <section class="page" id="page-reels"><div class="page-title"><div class="eyebrow">COLLECTION</div><h1>Reels</h1><p>Video media imported by you or obtained through an authorized integration.</p></div><div class="collection-grid" id="grid-reels"></div></section>
+      <section class="page" id="page-posts"><div class="page-title"><div class="eyebrow">COLLECTION</div><h1>Posts</h1><p>Images and videos in your local media workspace.</p></div><div class="collection-grid" id="grid-posts"></div></section>
+      <section class="page" id="page-carousels"><div class="page-title"><div class="eyebrow">COLLECTION</div><h1>Carousels</h1><p>Select individual items from files you import together.</p></div><div class="collection-grid" id="grid-carousels"></div></section>
+      <section class="page" id="page-profile"><div class="page-title"><div class="eyebrow">ACCOUNT CONTENT</div><h1>Profile</h1><p>Account-wide retrieval is not enabled until an approved Instagram integration is configured.</p></div><div class="feature-card"><span class="feature-icon">◎</span><div><h3>Authorized account access</h3><p>Connect an eligible professional Instagram account using Meta's official authorization flow. The API does not provide unrestricted downloading of any public profile.</p><button class="secondary-btn" data-go="connect">Review connection setup</button></div><span class="feature-state">NOT CONNECTED</span></div></section>
+      <section class="page" id="page-dm"><div class="page-title"><div class="eyebrow">PRIVATE MEDIA</div><h1>DM Media</h1><p>Import your own Instagram data export. This app does not access private messages.</p></div><div class="feature-card"><span class="feature-icon">✉</span><div><h3>Import an Instagram export</h3><p>Choose media files extracted from an export you requested through Instagram. Select the media files themselves; ZIP extraction is not performed in-browser.</p><label class="secondary-btn" for="dm-import">Select exported media</label><input id="dm-import" type="file" accept="image/*,video/*" multiple hidden></div><span class="feature-state">LOCAL ONLY</span></div><div class="privacy-note"><b>Privacy restrictions</b><p>Private-account access, message scraping, authentication bypass, disappearing-message capture and view-once protections are not implemented.</p></div></section>
+      <section class="page" id="page-connect"><div class="page-title"><div class="eyebrow">OFFICIAL INTEGRATION</div><h1>Connect Instagram</h1><p>Use Meta's supported authorization and API permissions. Never enter your Instagram password here.</p></div><div class="connect-card"><div class="connect-logo">◎</div><div class="connect-copy"><h2>Official account connection</h2><p>Instagram API access generally requires an eligible professional account, a Meta developer app, configured OAuth redirect URI, required permissions and any applicable review.</p><div class="connection-status"><span class="status-dot muted"></span><span id="connection-label">Not configured</span></div><button id="connect-info" class="primary-btn">View setup requirements <span>→</span></button></div></div><div class="privacy-note"><b>Not available in this build</b><p>OAuth login, token exchange and API media retrieval are deliberately disabled until you configure and deploy a secure backend with Meta credentials. Credentials must never be placed in app.js.</p></div></section>
+      <section class="page" id="page-downloads"><div class="page-title"><div class="eyebrow">YOUR ACTIVITY</div><h1>Downloads</h1><p>Files saved from this browser and recent local import activity.</p></div><div class="history-toolbar"><span id="history-total">0 items</span><button id="clear-history" class="text-btn">Clear history</button></div><div id="history-list" class="history-list"></div></section>
+      <section class="page" id="page-settings"><div class="page-title"><div class="eyebrow">PREFERENCES</div><h1>Settings</h1><p>Make the workspace work the way you prefer.</p></div><div class="settings-card">
+        <div class="setting-row"><div><b>Appearance</b><small>Choose your preferred color theme</small></div><select id="theme-select"><option value="dark">Dark</option><option value="light">Light</option><option value="system">System</option></select></div>
+        <div class="setting-row"><div><b>Default file naming</b><small>Prefix used for locally saved files</small></div><input id="filename-prefix" type="text" maxlength="32" value="Jus Downloader"></div>
+        <div class="setting-row"><div><b>Show media previews</b><small>Display thumbnails in collections</small></div><input id="preview-toggle" type="checkbox" checked></div>
+        <div class="setting-row"><div><b>Show optional DM section</b><small>Hide or show the local export importer</small></div><input id="dm-toggle" type="checkbox" checked></div>
+        <div class="setting-row"><div><b>Apps Script endpoint</b><small>Optional URL for activity logging (not media fetching)</small></div><input id="gas-url" type="url" placeholder="https://script.google.com/macros/s/…/exec"></div>
+        <div class="setting-actions"><button id="save-settings" class="primary-btn">Save preferences</button><button id="clear-cache" class="secondary-btn">Clear cached app files</button></div>
+      </div><div class="privacy-note"><b>Privacy and limitations</b><p>Media selected from your device is handled locally. Browser storage may be cleared by the operating system. Instagram link parsing does not fetch or download media by itself.</p></div></section>
+    </main>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Mobile navigation">
+    <button class="active" data-page="home"><span>⌂</span>Home</button><button data-page="reels"><span>▣</span>Reels</button><button data-page="posts"><span>▧</span>Posts</button><button data-page="downloads"><span>↓</span>Saved</button><button data-page="settings"><span>⚙</span>Settings</button>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="preview-dialog" class="preview-dialog"><button class="dialog-close" id="dialog-close" aria-label="Close preview">×</button><div id="preview-content"></div></dialog>
+  <script src="./app.js" defer></script>
+</body>
+</html>
